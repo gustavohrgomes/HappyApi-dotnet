@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 using Happy.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace Happy
 {
@@ -27,6 +28,9 @@ namespace Happy
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<HappyDbContext>(options => options.UseSqlite(
+                Configuration.GetConnectionString("HappyConnection")));
+
             services.AddControllers();
 
             services.AddScoped<IOrphanageRepository, MockOrphanageRepository>();
