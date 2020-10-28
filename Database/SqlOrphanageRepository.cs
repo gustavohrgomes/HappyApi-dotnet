@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using Happy.Models;
 
 namespace Happy.Database
@@ -21,6 +23,21 @@ namespace Happy.Database
     public Orphanage GetOrphanageById(int id)
     {
       return _context.Orphanages.FirstOrDefault(o => o.Id == id);
+    }
+
+    public void CreateOrphanage(Orphanage orphanage)
+    {
+      if (orphanage == null) 
+      {
+        throw new ArgumentException(nameof(orphanage));
+      }
+
+      _context.Orphanages.Add(orphanage);
+    }
+
+    public bool SaveChanges()
+    {
+      return (_context.SaveChanges() >= 0);
     }
   }
 }
