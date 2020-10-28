@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 
 using Happy.Models;
 using Happy.Database;
+using Happy.Dtos;
+
+using AutoMapper;
 
 namespace Happy.Controllers
 {
@@ -11,28 +14,44 @@ namespace Happy.Controllers
   public class OrphanagesController : ControllerBase
   {
     private readonly IOrphanageRepository _repository;
+    private readonly IMapper _mapper;
 
-    public OrphanagesController(IOrphanageRepository repository)
+    public OrphanagesController(IOrphanageRepository repository, IMapper mapper)
     { 
       _repository = repository;
+      _mapper = mapper;
     }
 
     // GET api/orphanages
     [HttpGet]
-    public ActionResult <IEnumerable<Orphanage>> GetAllOrphanages()
+    public ActionResult <IEnumerable<OrphanageReadDto>> GetAllOrphanages()
     {
       var orphanageItems = _repository.GetAllOrphanages();
 
-      return Ok(orphanageItems);
+      return Ok(_mapper.Map<IEnumerable<OrphanageReadDto>>(orphanageItems));
     }
 
     // GET api/orphanages/{id}
     [HttpGet("{id}")]
-    public ActionResult <Orphanage> GetOrphanageById(int id)
+    public ActionResult <OrphanageReadDto> GetOrphanageById(int id)
     {
       var orphanageItem = _repository.GetOrphanageById(id);
 
-      return Ok(orphanageItem);
+      if (orphanageItem != null)
+        return Ok(_mapper.Map<OrphanageReadDto>(orphanageItem));
+
+      return NotFound();
+    }
+
+    // POST api/orphanages/{id}
+    [HttpPost]
+    public ActionResult <OrphanageReadDto> CreateOrphanage(OrphanageCreateDto orphanageCreateDto)
+    {
+      var orphanage = _mapper.Map<Orphanage>(orphanageCreateDto);
+      _repository.CreateOrphanage(orphanage);
+      _repository.SaveChanges();
+
+      return Ok(orphanage);
     }
   }
 }
