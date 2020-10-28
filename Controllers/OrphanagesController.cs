@@ -32,7 +32,7 @@ namespace Happy.Controllers
     }
 
     // GET api/orphanages/{id}
-    [HttpGet("{id}")]
+    [HttpGet("{id}", Name="GetOrphanageById")]
     public ActionResult <OrphanageReadDto> GetOrphanageById(int id)
     {
       var orphanageItem = _repository.GetOrphanageById(id);
@@ -47,11 +47,13 @@ namespace Happy.Controllers
     [HttpPost]
     public ActionResult <OrphanageReadDto> CreateOrphanage(OrphanageCreateDto orphanageCreateDto)
     {
-      var orphanage = _mapper.Map<Orphanage>(orphanageCreateDto);
-      _repository.CreateOrphanage(orphanage);
+      var orphanageModel = _mapper.Map<Orphanage>(orphanageCreateDto); 
+      _repository.CreateOrphanage(orphanageModel);
       _repository.SaveChanges();
 
-      return Ok(orphanage);
+      var orphanageReadDto = _mapper.Map<OrphanageReadDto>(orphanageModel);
+
+      return CreatedAtRoute(nameof(GetOrphanageById), new { Id = orphanageReadDto.Id }, orphanageReadDto);
     }
   }
 }
