@@ -8,9 +8,13 @@ namespace Happy.Profiles
   {
     public OrphanagesProfile()
     {
+      // Domain to DTO
       CreateMap<Orphanage, OrphanageReadDto>();
+      CreateMap<Orphanage, OrphanageCreateDto>();
 
+      // DTO to Domain
       CreateMap<OrphanageCreateDto, Orphanage>();
+      CreateMap<OrphanageReadDto, Orphanage>();
     }
   }
 }
