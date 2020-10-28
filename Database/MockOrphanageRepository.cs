@@ -5,6 +5,11 @@ namespace Happy.Database
 {
   public class MockOrphanageRepository : IOrphanageRepository
   {
+    public void CreateOrphanage(Orphanage orphanage)
+    {
+      throw new System.NotImplementedException();
+    }
+
     public IEnumerable<Orphanage> GetAllOrphanages()
     {
       var orphanages = new List<Orphanage> 
@@ -49,6 +54,11 @@ namespace Happy.Database
         Open_on_weekends = true,
         Opening_hours = "Das 8h às 16h"
       };
+    }
+
+    public bool SaveChanges()
+    {
+      throw new System.NotImplementedException();
     }
   }
 }
