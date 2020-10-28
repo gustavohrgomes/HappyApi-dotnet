@@ -21,7 +21,7 @@ namespace Happy.Controllers
     [HttpGet]
     public ActionResult <IEnumerable<Orphanage>> GetAllOrphanages()
     {
-      var orphanageItems = _repository.GetOrphanages();
+      var orphanageItems = _repository.GetAllOrphanages();
 
       return Ok(orphanageItems);
     }
