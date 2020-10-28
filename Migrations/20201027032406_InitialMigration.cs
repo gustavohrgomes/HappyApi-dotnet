@@ -14,7 +14,7 @@ namespace Happy.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: false),
                     Latitude = table.Column<double>(nullable: false),
-                    Longitutde = table.Column<double>(nullable: false),
+                    Longitude = table.Column<double>(nullable: false),
                     About = table.Column<string>(maxLength: 300, nullable: false),
                     Instructions = table.Column<string>(nullable: false),
                     Opening_hours = table.Column<string>(nullable: false),

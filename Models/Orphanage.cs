@@ -14,7 +14,7 @@ namespace Happy.Models
     public double Latitude { get; set; }
 
     [Required]
-    public double Longitutde { get; set; }
+    public double Longitude { get; set; }
 
     [Required]
     [MaxLength(300)]

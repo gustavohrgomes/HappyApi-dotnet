@@ -35,7 +35,7 @@ namespace Happy.Migrations
                     b.Property<double>("Latitude")
                         .HasColumnType("REAL");
 
-                    b.Property<double>("Longitutde")
+                    b.Property<double>("Longitude")
                         .HasColumnType("REAL");
 
                     b.Property<string>("Name")
