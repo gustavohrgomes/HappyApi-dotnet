@@ -33,7 +33,8 @@ namespace Happy
 
             services.AddControllers();
 
-            services.AddScoped<IOrphanageRepository, MockOrphanageRepository>();
+            //services.AddScoped<IOrphanageRepository, MockOrphanageRepository>();
+            services.AddScoped<IOrphanageRepository, SqlOrphanageRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
