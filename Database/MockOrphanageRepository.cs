@@ -5,7 +5,7 @@ namespace Happy.Database
 {
   public class MockOrphanageRepository : IOrphanageRepository
   {
-    public IEnumerable<Orphanage> GetOrphanages()
+    public IEnumerable<Orphanage> GetAllOrphanages()
     {
       var orphanages = new List<Orphanage> 
       {

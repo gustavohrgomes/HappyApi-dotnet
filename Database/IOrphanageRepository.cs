@@ -5,7 +5,7 @@ namespace Happy.Database
 {
   public interface IOrphanageRepository
   {
-    IEnumerable<Orphanage> GetOrphanages();
+    IEnumerable<Orphanage> GetAllOrphanages();
     Orphanage GetOrphanageById(int id);
   }
 }
