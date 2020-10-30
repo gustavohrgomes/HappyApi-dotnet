@@ -29,8 +29,8 @@ namespace Happy
 
     public void ConfigureServices(IServiceCollection services)
     {
-      services.AddDbContext<HappyDbContext>(options => options.UseSqlite(
-          Configuration.GetConnectionString("HappyConnection")));
+      services.AddDbContext<HappyDbContext>(options => options.UseMySql(
+        Configuration.GetConnectionString("HappyConnection")));
 
       services.AddControllers();
 
