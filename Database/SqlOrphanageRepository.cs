@@ -35,6 +35,11 @@ namespace Happy.Database
       _context.Orphanages.Add(orphanage);
     }
 
+    public void UpdateOrphanage(Orphanage orphanage)
+    {
+      // nothing yet
+    }
+
     public bool SaveChanges()
     {
       return (_context.SaveChanges() >= 0);

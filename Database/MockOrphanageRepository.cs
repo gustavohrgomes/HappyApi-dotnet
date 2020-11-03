@@ -60,5 +60,10 @@ namespace Happy.Database
     {
       throw new System.NotImplementedException();
     }
+
+    public void UpdateOrphanage(Orphanage orphanage)
+    {
+      throw new System.NotImplementedException();
+    }
   }
 }

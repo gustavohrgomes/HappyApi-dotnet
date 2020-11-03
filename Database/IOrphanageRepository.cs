@@ -10,5 +10,6 @@ namespace Happy.Database
     IEnumerable<Orphanage> GetAllOrphanages();
     Orphanage GetOrphanageById(int id);
     void CreateOrphanage(Orphanage orphanage);
+    void UpdateOrphanage(Orphanage orphanage);
   }
 }
