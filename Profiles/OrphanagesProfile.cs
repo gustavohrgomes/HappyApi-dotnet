@@ -12,9 +12,11 @@ namespace Happy.Profiles
       CreateMap<Orphanage, OrphanageReadDto>();
       CreateMap<Orphanage, OrphanageCreateDto>();
 
+
       // DTO to Domain
       CreateMap<OrphanageCreateDto, Orphanage>();
       CreateMap<OrphanageReadDto, Orphanage>();
+      CreateMap<OrphanageUpdateDto, Orphanage>();
     }
   }
 }
