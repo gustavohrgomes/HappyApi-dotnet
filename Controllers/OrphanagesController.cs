@@ -95,5 +95,20 @@ namespace Happy.Controllers
 
       return NoContent();
     }
+
+    // DELETE api/orphanages/{id}
+    [HttpDelete("{id}")]
+    public ActionResult DeleteOrphanage(int id) 
+    {
+      var orphanageFromRepo = _repository.GetOrphanageById(id);
+
+      if (orphanageFromRepo == null) 
+       return NotFound();
+
+      _repository.DeleteOrphanage(orphanageFromRepo);
+      _repository.SaveChanges();
+
+      return NoContent();
+    }
   }
 }

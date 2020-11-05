@@ -40,6 +40,16 @@ namespace Happy.Database
       // nothing yet
     }
 
+    public void DeleteOrphanage(Orphanage orphanage)
+    {
+      if (orphanage == null) 
+      {
+        throw new ArgumentException(nameof(orphanage));
+      }
+
+      _context.Orphanages.Remove(orphanage);      
+    }
+
     public bool SaveChanges()
     {
       return (_context.SaveChanges() >= 0);

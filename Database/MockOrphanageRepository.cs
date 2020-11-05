@@ -10,6 +10,11 @@ namespace Happy.Database
       throw new System.NotImplementedException();
     }
 
+    public void DeleteOrphanage(Orphanage orphanage)
+    {
+      throw new System.NotImplementedException();
+    }
+
     public IEnumerable<Orphanage> GetAllOrphanages()
     {
       var orphanages = new List<Orphanage> 

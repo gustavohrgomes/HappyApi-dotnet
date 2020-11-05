@@ -11,5 +11,6 @@ namespace Happy.Database
     Orphanage GetOrphanageById(int id);
     void CreateOrphanage(Orphanage orphanage);
     void UpdateOrphanage(Orphanage orphanage);
+    void DeleteOrphanage(Orphanage orphanage);
   }
 }
