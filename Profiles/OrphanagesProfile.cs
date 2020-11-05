@@ -18,6 +18,7 @@ namespace Happy.Profiles
       CreateMap<OrphanageReadDto, Orphanage>();
       CreateMap<OrphanageUpdateDto, Orphanage>()
         .ForMember(orphanage => orphanage.Id, option => option.Ignore());
+      CreateMap<Orphanage, OrphanageUpdateDto>();
     }
   }
 }

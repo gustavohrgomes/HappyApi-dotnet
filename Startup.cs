@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
-
+using Newtonsoft.Json.Serialization;
 using Happy.Database;
 using AutoMapper;
 
@@ -32,7 +31,9 @@ namespace Happy
       services.AddDbContext<HappyDbContext>(options => options.UseMySql(
         Configuration.GetConnectionString("HappyConnection")));
 
-      services.AddControllers();
+      services.AddControllers().AddNewtonsoftJson(opt => 
+        opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver()
+      );
 
       services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
