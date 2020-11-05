@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.AspNetCore.JsonPatch;
 using Happy.Models;
 using Happy.Database;
 using Happy.Dtos;
-
 using AutoMapper;
 
 namespace Happy.Controllers
@@ -68,6 +67,30 @@ namespace Happy.Controllers
       _mapper.Map(orphanageUpdateDto, orphanageModelFromRepo);
 
       _repository.UpdateOrphanage(orphanageModelFromRepo);
+      _repository.SaveChanges();
+
+      return NoContent();
+    }
+
+    // PATCH api/orphanages/{id}
+    [HttpPatch("{id}")]
+    public ActionResult PartialOrphanageUpdate(int id, JsonPatchDocument<OrphanageUpdateDto> patchOrphanage) 
+    {
+      var orphanageFromRepo = _repository.GetOrphanageById(id);
+
+      if (orphanageFromRepo == null)
+        return NotFound();
+
+      var orphanageToPatch = _mapper.Map<OrphanageUpdateDto>(orphanageFromRepo);
+
+      patchOrphanage.ApplyTo(orphanageToPatch, ModelState);
+      
+      if (!TryValidateModel(orphanageToPatch))
+        return ValidationProblem(ModelState);
+
+      _mapper.Map(orphanageToPatch, orphanageFromRepo);
+
+      _repository.UpdateOrphanage(orphanageFromRepo);
       _repository.SaveChanges();
 
       return NoContent();
