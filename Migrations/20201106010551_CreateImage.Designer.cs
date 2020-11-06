@@ -2,14 +2,16 @@
 using Happy.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Happy.Migrations
 {
     [DbContext(typeof(HappyDbContext))]
-    partial class HappyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201106010551_CreateImage")]
+    partial class CreateImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
