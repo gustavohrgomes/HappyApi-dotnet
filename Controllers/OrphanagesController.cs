@@ -5,6 +5,9 @@ using Happy.Models;
 using Happy.Database;
 using Happy.Dtos;
 using AutoMapper;
+using System.IO;
+using System;
+using Microsoft.AspNetCore.Http;
 
 namespace Happy.Controllers
 {
@@ -53,6 +56,22 @@ namespace Happy.Controllers
       var orphanageReadDto = _mapper.Map<OrphanageReadDto>(orphanageModel);
 
       return CreatedAtRoute(nameof(GetOrphanageById), new { Id = orphanageReadDto.Id }, orphanageReadDto);
+    }
+
+    [HttpPost]
+    [Route("Upload")]
+    public ActionResult UploadImage([FromForm] FileModel image)
+    {
+      try
+      {
+        string path = Path.Combine(Directory.GetCurrentDirectory(), "uploads", image.Name);   
+
+        return Ok();
+      }
+      catch(Exception err)
+      {
+        return BadRequest(err.Message);
+      }
     }
 
     // PUT api/orphanages/{id}

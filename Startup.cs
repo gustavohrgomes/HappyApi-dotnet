@@ -31,6 +31,17 @@ namespace Happy
       services.AddDbContext<HappyDbContext>(options => options.UseMySql(
         Configuration.GetConnectionString("HappyConnection")));
 
+      services.AddCors(options => 
+      {
+        options.AddPolicy("CorsPolicy", builder => 
+        {
+          builder
+            .AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+        });
+      });
+
       services.AddControllers().AddNewtonsoftJson(opt => 
         opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver()
       );
@@ -50,6 +61,8 @@ namespace Happy
       app.UseHttpsRedirection();
 
       app.UseRouting();
+
+      app.UseCors("CorsPolicy");
 
       app.UseAuthorization();
 
