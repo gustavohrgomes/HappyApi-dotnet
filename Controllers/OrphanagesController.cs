@@ -8,6 +8,8 @@ using AutoMapper;
 using System.IO;
 using System;
 using Microsoft.AspNetCore.Http;
+using Happy.Services;
+using System.Threading.Tasks;
 
 namespace Happy.Controllers
 {
@@ -17,11 +19,13 @@ namespace Happy.Controllers
   {
     private readonly IOrphanageRepository _repository;
     private readonly IMapper _mapper;
+    private readonly SaveImagesService _imagesService;
 
-    public OrphanagesController(IOrphanageRepository repository, IMapper mapper)
+    public OrphanagesController(IOrphanageRepository repository, IMapper mapper, SaveImagesService imagesService)
     { 
       _repository = repository;
       _mapper = mapper;
+      _imagesService = imagesService;
     }
 
     // GET api/orphanages
@@ -60,18 +64,16 @@ namespace Happy.Controllers
 
     [HttpPost]
     [Route("Upload")]
-    public ActionResult UploadImage([FromForm] FileModel image)
+    public ActionResult UploadImage([FromForm] ImageFileDto image)
     {
-      try
-      {
-        string path = Path.Combine(Directory.GetCurrentDirectory(), "uploads", image.Name);   
+      var imageModel = _mapper.Map<FileModel>(image);
 
-        return Ok();
-      }
-      catch(Exception err)
-      {
-        return BadRequest(err.Message);
-      }
+      if(!_imagesService.CheckIfDirectoryExists())
+        return BadRequest();
+
+      _imagesService.SaveImageOnDisk(imageModel);
+      
+      return Ok();
     }
 
     // PUT api/orphanages/{id}

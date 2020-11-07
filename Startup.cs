@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Serialization;
 using Happy.Database;
+using Happy.Services;
 using AutoMapper;
 
 namespace Happy
@@ -49,6 +50,7 @@ namespace Happy
       services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
       services.AddScoped<IOrphanageRepository, SqlOrphanageRepository>();
+      services.AddScoped<SaveImagesService>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
