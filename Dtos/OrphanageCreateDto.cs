@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace Happy.Dtos
 {
@@ -27,5 +28,8 @@ namespace Happy.Dtos
 
     [Required]
     public bool Open_on_weekends { get; set; }
+
+    [Required]
+    public IFormFileCollection Images { get; set; }
   }
 }
