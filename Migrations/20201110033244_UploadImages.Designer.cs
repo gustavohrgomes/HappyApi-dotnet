@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Happy.Migrations
 {
     [DbContext(typeof(HappyDbContext))]
-    [Migration("20201110022659_UploadImages")]
+    [Migration("20201110033244_UploadImages")]
     partial class UploadImages
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,8 +20,9 @@ namespace Happy.Migrations
 
             modelBuilder.Entity("Happy.Models.FileModel", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
                     b.Property<int>("OrphanageId")
                         .HasColumnType("int");
@@ -30,6 +31,8 @@ namespace Happy.Migrations
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OrphanageId");
 
                     b.ToTable("Images");
                 });
@@ -69,6 +72,15 @@ namespace Happy.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Orphanages");
+                });
+
+            modelBuilder.Entity("Happy.Models.FileModel", b =>
+                {
+                    b.HasOne("Happy.Models.Orphanage", "Orphanage")
+                        .WithMany()
+                        .HasForeignKey("OrphanageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
