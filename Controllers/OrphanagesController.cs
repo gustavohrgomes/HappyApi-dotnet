@@ -17,13 +17,13 @@ namespace Happy.Controllers
   [ApiController]
   public class OrphanagesController : ControllerBase
   {
-    private readonly IOrphanageRepository _repository;
+    private readonly IOrphanageRepository _orphanageRepository;
     private readonly IMapper _mapper;
     private readonly SaveImagesService _imagesService;
 
-    public OrphanagesController(IOrphanageRepository repository, IMapper mapper, SaveImagesService imagesService)
+    public OrphanagesController(IOrphanageRepository orphanageRepository, IMapper mapper, SaveImagesService imagesService)
     { 
-      _repository = repository;
+      _orphanageRepository = orphanageRepository;
       _mapper = mapper;
       _imagesService = imagesService;
     }
@@ -32,7 +32,7 @@ namespace Happy.Controllers
     [HttpGet]
     public ActionResult <IEnumerable<OrphanageReadDto>> GetAllOrphanages()
     {
-      var orphanageItems = _repository.GetAllOrphanages();
+      var orphanageItems = _orphanageRepository.GetAllOrphanages();
 
       return Ok(_mapper.Map<IEnumerable<OrphanageReadDto>>(orphanageItems));
     }
@@ -41,7 +41,7 @@ namespace Happy.Controllers
     [HttpGet("{id}", Name="GetOrphanageById")]
     public ActionResult <OrphanageReadDto> GetOrphanageById(int id)
     {
-      var orphanageItem = _repository.GetOrphanageById(id);
+      var orphanageItem = _orphanageRepository.GetOrphanageById(id);
 
       if (orphanageItem != null)
         return Ok(_mapper.Map<OrphanageReadDto>(orphanageItem));
@@ -54,8 +54,15 @@ namespace Happy.Controllers
     public ActionResult <OrphanageReadDto> CreateOrphanage([FromForm] OrphanageCreateDto orphanageCreateDto, [FromForm] ImageFileDto images)
     {
       var orphanageModel = _mapper.Map<Orphanage>(orphanageCreateDto);
-      _repository.CreateOrphanage(orphanageModel);
-      _repository.SaveChanges();
+      var imageModel = _mapper.Map<FileModel>(images);
+
+      if(!_imagesService.CheckIfDirectoryExists())
+        return BadRequest();
+
+      _imagesService.SaveImageOnDisk(imageModel);
+
+      _orphanageRepository.CreateOrphanage(orphanageModel);
+      _orphanageRepository.SaveChanges();
 
       var orphanageReadDto = _mapper.Map<OrphanageReadDto>(orphanageModel);
 
@@ -64,7 +71,7 @@ namespace Happy.Controllers
 
     [HttpPost]
     [Route("Upload")]
-    public ActionResult UploadImage([FromForm] OrphanageCreateDto orphanageCreateDto, [FromForm] ImageFileDto images)
+    public ActionResult UploadImage([FromForm] ImageFileDto images)
     {
       var imageModel = _mapper.Map<FileModel>(images);
 
@@ -80,15 +87,15 @@ namespace Happy.Controllers
     [HttpPut("{id}")]
     public ActionResult UpdateOrphanage(int id, OrphanageUpdateDto orphanageUpdateDto)
     {
-      var orphanageModelFromRepo = _repository.GetOrphanageById(id);
+      var orphanageModelFromRepo = _orphanageRepository.GetOrphanageById(id);
 
       if (orphanageModelFromRepo == null)
         return NotFound();
 
       _mapper.Map(orphanageUpdateDto, orphanageModelFromRepo);
 
-      _repository.UpdateOrphanage(orphanageModelFromRepo);
-      _repository.SaveChanges();
+      _orphanageRepository.UpdateOrphanage(orphanageModelFromRepo);
+      _orphanageRepository.SaveChanges();
 
       return NoContent();
     }
@@ -97,7 +104,7 @@ namespace Happy.Controllers
     [HttpPatch("{id}")]
     public ActionResult PartialOrphanageUpdate(int id, JsonPatchDocument<OrphanageUpdateDto> patchOrphanage) 
     {
-      var orphanageFromRepo = _repository.GetOrphanageById(id);
+      var orphanageFromRepo = _orphanageRepository.GetOrphanageById(id);
 
       if (orphanageFromRepo == null)
         return NotFound();
@@ -111,8 +118,8 @@ namespace Happy.Controllers
 
       _mapper.Map(orphanageToPatch, orphanageFromRepo);
 
-      _repository.UpdateOrphanage(orphanageFromRepo);
-      _repository.SaveChanges();
+      _orphanageRepository.UpdateOrphanage(orphanageFromRepo);
+      _orphanageRepository.SaveChanges();
 
       return NoContent();
     }
@@ -121,13 +128,13 @@ namespace Happy.Controllers
     [HttpDelete("{id}")]
     public ActionResult DeleteOrphanage(int id) 
     {
-      var orphanageFromRepo = _repository.GetOrphanageById(id);
+      var orphanageFromRepo = _orphanageRepository.GetOrphanageById(id);
 
       if (orphanageFromRepo == null) 
        return NotFound();
 
-      _repository.DeleteOrphanage(orphanageFromRepo);
-      _repository.SaveChanges();
+      _orphanageRepository.DeleteOrphanage(orphanageFromRepo);
+      _orphanageRepository.SaveChanges();
 
       return NoContent();
     }
