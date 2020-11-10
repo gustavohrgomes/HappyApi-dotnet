@@ -12,5 +12,6 @@ namespace Happy.Database
     }
 
     public DbSet<Orphanage> Orphanages { get; set; }
+    public DbSet<FileModel> Images { get; set; }
   }
 }
