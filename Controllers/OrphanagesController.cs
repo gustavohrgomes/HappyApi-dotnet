@@ -51,9 +51,9 @@ namespace Happy.Controllers
 
     // POST api/orphanages
     [HttpPost]
-    public ActionResult <OrphanageReadDto> CreateOrphanage(OrphanageCreateDto orphanageCreateDto)
+    public ActionResult <OrphanageReadDto> CreateOrphanage([FromForm] OrphanageCreateDto orphanageCreateDto, [FromForm] ImageFileDto images)
     {
-      var orphanageModel = _mapper.Map<Orphanage>(orphanageCreateDto); 
+      var orphanageModel = _mapper.Map<Orphanage>(orphanageCreateDto);
       _repository.CreateOrphanage(orphanageModel);
       _repository.SaveChanges();
 
@@ -64,9 +64,9 @@ namespace Happy.Controllers
 
     [HttpPost]
     [Route("Upload")]
-    public ActionResult UploadImage([FromForm] ImageFileDto image)
+    public ActionResult UploadImage([FromForm] OrphanageCreateDto orphanageCreateDto, [FromForm] ImageFileDto images)
     {
-      var imageModel = _mapper.Map<FileModel>(image);
+      var imageModel = _mapper.Map<FileModel>(images);
 
       if(!_imagesService.CheckIfDirectoryExists())
         return BadRequest();
