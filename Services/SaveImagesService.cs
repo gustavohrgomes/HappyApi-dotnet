@@ -20,9 +20,9 @@ namespace Happy.Services
       _mapper = mapper;
     }
 
-    public void SaveImageOnDisk(FileModel file)
+    public void SaveImageOnDisk(FileModel filesFromForm)
     {
-      foreach (var img in file.Image) 
+      foreach (var img in filesFromForm.Images) 
       {
         string imageName = new string(Path.GetFileNameWithoutExtension(img.FileName)).Replace(' ', '-');
         imageName += DateTime.Now.ToString("yyMMssfff") + Path.GetExtension(img.FileName);
