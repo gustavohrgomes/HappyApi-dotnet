@@ -7,7 +7,6 @@ namespace Happy.Dtos
   {
     public string Id { get; set; }
     public string Path { get; set; }
-    public IEnumerable<IFormFile> Images { get; set; }
     public int OrphanageId { get; set; }
   }
 }
