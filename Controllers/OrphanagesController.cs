@@ -51,37 +51,35 @@ namespace Happy.Controllers
 
     // POST api/orphanages
     [HttpPost]
-    public ActionResult <OrphanageReadDto> CreateOrphanage([FromForm] OrphanageCreateDto orphanageCreateDto, [FromForm] ImageFileDto images)
+    public ActionResult <OrphanageReadDto> CreateOrphanage([FromForm] OrphanageCreateDto orphanageCreateDto)
     {
       var orphanageModel = _mapper.Map<Orphanage>(orphanageCreateDto);
-      var imageModel = _mapper.Map<FileModel>(images);
-
+      var imagesFromForm = orphanageCreateDto.Images;
+      
       if(!_imagesService.CheckIfDirectoryExists())
         return BadRequest();
 
-      _imagesService.SaveImageOnDisk(imageModel);
-
       _orphanageRepository.CreateOrphanage(orphanageModel);
       _orphanageRepository.SaveChanges();
+
+      _imagesService.SaveImage(imagesFromForm, orphanageModel);
 
       var orphanageReadDto = _mapper.Map<OrphanageReadDto>(orphanageModel);
 
       return CreatedAtRoute(nameof(GetOrphanageById), new { Id = orphanageReadDto.Id }, orphanageReadDto);
     }
 
-    [HttpPost]
-    [Route("Upload")]
-    public ActionResult UploadImage([FromForm] ImageFileDto images)
-    {
-      var imageModel = _mapper.Map<FileModel>(images);
+    // [HttpPost]
+    // [Route("Upload")]
+    // public ActionResult UploadImage([FromForm] IFormFileCollection images)
+    // {
+    //   if(!_imagesService.CheckIfDirectoryExists())
+    //     return BadRequest();
 
-      if(!_imagesService.CheckIfDirectoryExists())
-        return BadRequest();
-
-      _imagesService.SaveImageOnDisk(imageModel);
+    //   _imagesService.SaveImage(images);
       
-      return Ok();
-    }
+    //   return Ok();
+    // }
 
     // PUT api/orphanages/{id}
     [HttpPut("{id}")]
