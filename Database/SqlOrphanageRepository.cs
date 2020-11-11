@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Happy.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Happy.Database
 {
@@ -17,7 +18,9 @@ namespace Happy.Database
 
     public IEnumerable<Orphanage> GetAllOrphanages()
     {
-      return _context.Orphanages.ToList();
+      return _context.Orphanages
+        .Include(o => o.Images)
+        .ToList();
     }
 
     public Orphanage GetOrphanageById(int id)
