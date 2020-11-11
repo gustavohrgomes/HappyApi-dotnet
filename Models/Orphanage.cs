@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Happy.Models
 {
@@ -28,5 +30,7 @@ namespace Happy.Models
 
     [Required]
     public Boolean Open_on_weekends { get; set; }
+
+    public IEnumerable<FileModel> Images { get; set; }
   }
 }

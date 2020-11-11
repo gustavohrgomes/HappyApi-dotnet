@@ -8,8 +8,8 @@ namespace Happy.Profiles
   {
     public ImagesProfile()
     {
-        CreateMap<FileModel, ImageFileDto>();
-        CreateMap<ImageFileDto, FileModel>();
+      CreateMap<FileModel, ImageFileDto>();
+      CreateMap<ImageFileDto, FileModel>();
     }
   }
 }

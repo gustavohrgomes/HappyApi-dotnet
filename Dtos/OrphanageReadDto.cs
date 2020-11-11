@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Happy.Dtos
 {
   public class OrphanageReadDto
@@ -16,5 +18,7 @@ namespace Happy.Dtos
     public string Opening_hours { get; set; }
 
     public bool Open_on_weekends { get; set; }
+
+    public IEnumerable<ImageFileDto> Images { get; set; }
   }
 }

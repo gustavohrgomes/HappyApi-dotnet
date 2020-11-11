@@ -14,7 +14,8 @@ namespace Happy.Profiles
 
 
       // DTO to Domain
-      CreateMap<OrphanageCreateDto, Orphanage>();
+      CreateMap<OrphanageCreateDto, Orphanage>()
+        .ForMember(orphanage => orphanage.Images, option => option.Ignore());
       CreateMap<OrphanageReadDto, Orphanage>();
       CreateMap<OrphanageUpdateDto, Orphanage>()
         .ForMember(orphanage => orphanage.Id, option => option.Ignore());
