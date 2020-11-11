@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Happy.Controllers
 {
-  [Route("api/orphanages")]
+  [Route("orphanages")]
   [ApiController]
   public class OrphanagesController : ControllerBase
   {
