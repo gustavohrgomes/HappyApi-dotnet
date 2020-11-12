@@ -19,9 +19,9 @@ namespace Happy.Controllers
   {
     private readonly IOrphanageRepository _orphanageRepository;
     private readonly IMapper _mapper;
-    private readonly SaveImagesService _imagesService;
+    private readonly ImagesService _imagesService;
 
-    public OrphanagesController(IOrphanageRepository orphanageRepository, IMapper mapper, SaveImagesService imagesService)
+    public OrphanagesController(IOrphanageRepository orphanageRepository, IMapper mapper, ImagesService imagesService)
     { 
       _orphanageRepository = orphanageRepository;
       _mapper = mapper;
@@ -68,19 +68,7 @@ namespace Happy.Controllers
 
       return CreatedAtRoute(nameof(GetOrphanageById), new { Id = orphanageReadDto.Id }, orphanageReadDto);
     }
-
-    // [HttpPost]
-    // [Route("Upload")]
-    // public ActionResult UploadImage([FromForm] IFormFileCollection images)
-    // {
-    //   if(!_imagesService.CheckIfDirectoryExists())
-    //     return BadRequest();
-
-    //   _imagesService.SaveImage(images);
-      
-    //   return Ok();
-    // }
-
+ 
     // PUT api/orphanages/{id}
     [HttpPut("{id}")]
     public ActionResult UpdateOrphanage(int id, OrphanageUpdateDto orphanageUpdateDto)

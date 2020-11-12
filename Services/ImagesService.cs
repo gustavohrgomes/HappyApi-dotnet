@@ -10,13 +10,13 @@ using Microsoft.AspNetCore.Http;
 
 namespace Happy.Services
 {
-  public class SaveImagesService
+  public class ImagesService
   {
     private readonly IWebHostEnvironment _hostEnvironment;
     private readonly HappyDbContext _context;
     private readonly IMapper _mapper;
 
-    public SaveImagesService(IWebHostEnvironment hostEnvironment, HappyDbContext context, IMapper mapper)
+    public ImagesService(IWebHostEnvironment hostEnvironment, HappyDbContext context, IMapper mapper)
     {
       _hostEnvironment = hostEnvironment;
       _context = context;
