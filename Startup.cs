@@ -50,7 +50,7 @@ namespace Happy
       services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
       services.AddScoped<IOrphanageRepository, SqlOrphanageRepository>();
-      services.AddScoped<SaveImagesService>();
+      services.AddScoped<ImagesService>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
