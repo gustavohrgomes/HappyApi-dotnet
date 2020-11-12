@@ -23,8 +23,8 @@ namespace Happy.Database
         {
           Id = 1,
           Name = "Casa betania",
-          Latitude = -21.7937801,
-          Longitude = -48.1814702,
+          Latitude = "-21.7937801",
+          Longitude = "-48.1814702",
           About = "Casa de acolhimento Betania",
           Instructions = "Venha nos visitar",
           Open_on_weekends = false,
@@ -34,8 +34,8 @@ namespace Happy.Database
         {
           Id = 2,
           Name = "Minha casa",
-          Latitude = -21.7937801,
-          Longitude = -48.1814702,
+          Latitude = "-21.7937801",
+          Longitude = "-48.1814702",
           About = "Esta é minha casa",
           Instructions = "Chama no role",
           Open_on_weekends = true,
@@ -52,8 +52,8 @@ namespace Happy.Database
       {
         Id = 1,
         Name = "Casa betania",
-        Latitude = -21.7937801,
-        Longitude = -48.1814702,
+        Latitude = "-21.7937801",
+        Longitude = "-48.1814702",
         About = "Casa de acolhimento Betania",
         Instructions = "Venha nos visitar",
         Open_on_weekends = true,

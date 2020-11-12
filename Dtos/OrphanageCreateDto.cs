@@ -11,10 +11,10 @@ namespace Happy.Dtos
     public string Name { get; set; }
 
     [Required]
-    public double Latitude { get; set; }
+    public string Latitude { get; set; }
 
     [Required]
-    public double Longitude { get; set; }
+    public string Longitude { get; set; }
 
     [Required]
     public string About { get; set; }

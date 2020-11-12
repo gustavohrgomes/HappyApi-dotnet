@@ -25,7 +25,9 @@ namespace Happy.Database
 
     public Orphanage GetOrphanageById(int id)
     {
-      return _context.Orphanages.FirstOrDefault(o => o.Id == id);
+      return _context.Orphanages
+        .Include(o => o.Images)
+        .FirstOrDefault(o => o.Id == id);
     }
 
     public void CreateOrphanage(Orphanage orphanage)
