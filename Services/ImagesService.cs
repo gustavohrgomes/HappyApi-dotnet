@@ -48,14 +48,12 @@ namespace Happy.Services
       _context.SaveChanges();
     }
 
-    public bool CheckIfDirectoryExists() 
+    public void CheckIfDirectoryExists() 
     {
       if(!Directory.Exists(_hostEnvironment.WebRootPath + "uploads"))
       {
         Directory.CreateDirectory(_hostEnvironment.WebRootPath + "uploads");
       }
-
-      return true;
     }
   }
 }

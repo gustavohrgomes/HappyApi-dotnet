@@ -56,14 +56,13 @@ namespace Happy.Controllers
     public ActionResult <OrphanageReadDto> CreateOrphanage([FromForm] OrphanageCreateDto orphanageCreateDto)
     {
       var orphanageModel = _mapper.Map<Orphanage>(orphanageCreateDto);
-      var imagesFromForm = orphanageCreateDto.Images;
-      
-      if(!_imagesService.CheckIfDirectoryExists())
-        return BadRequest();
 
       _orphanageRepository.CreateOrphanage(orphanageModel);
       _orphanageRepository.SaveChanges();
 
+      var imagesFromForm = orphanageCreateDto.Images;
+      
+      _imagesService.CheckIfDirectoryExists();
       _imagesService.SaveImage(imagesFromForm, orphanageModel);
 
       var orphanageReadDto = _mapper.Map<OrphanageReadDto>(orphanageModel);
