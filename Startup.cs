@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Serialization;
 using Happy.Database;
@@ -61,6 +63,13 @@ namespace Happy
       }
 
       app.UseHttpsRedirection();
+
+      app.UseStaticFiles(new StaticFileOptions
+      {
+          FileProvider = new PhysicalFileProvider(
+              Path.Combine(env.ContentRootPath, "uploads")),
+          RequestPath = "/uploads"
+      });
 
       app.UseRouting();
 
