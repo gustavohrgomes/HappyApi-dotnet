@@ -41,12 +41,14 @@ namespace Happy.Controllers
     [HttpGet("{id}", Name="GetOrphanageById")]
     public ActionResult <OrphanageReadDto> GetOrphanageById(int id)
     {
-      var orphanageItem = _orphanageRepository.GetOrphanageById(id);
+      var orphanageModel = _orphanageRepository.GetOrphanageById(id);
 
-      if (orphanageItem != null)
-        return Ok(_mapper.Map<OrphanageReadDto>(orphanageItem));
+      if (orphanageModel == null)
+        return NotFound();
 
-      return NotFound();
+      var orphanageReadDto = _mapper.Map<OrphanageReadDto>(orphanageModel);
+
+      return Ok(orphanageReadDto);
     }
 
     // POST api/orphanages
